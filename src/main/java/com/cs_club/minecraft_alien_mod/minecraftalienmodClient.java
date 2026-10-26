@@ -1,6 +1,9 @@
 package com.cs_club.minecraft_alien_mod;
 
+import com.cs_club.minecraft_alien_mod.entity.ModEntities;
+import com.cs_club.minecraft_alien_mod.entity.client.HeadcrabRenderer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -17,8 +20,6 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 public class minecraftalienmodClient {
     public minecraftalienmodClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.
-        // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
-        // Do not forget to add translations for your config options to the en_us.json file.
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
@@ -27,5 +28,8 @@ public class minecraftalienmodClient {
         // Some client setup code
         minecraftalienmod.LOGGER.info("HELLO FROM CLIENT SETUP");
         minecraftalienmod.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+
+        // Register entity renderer
+        EntityRenderers.register(ModEntities.HEADCRAB.get(), HeadcrabRenderer::new);
     }
 }

@@ -1,5 +1,10 @@
 package com.cs_club.minecraft_alien_mod;
 
+import com.cs_club.minecraft_alien_mod.entity.ModEntities;
+import com.cs_club.minecraft_alien_mod.entity.client.HeadcrabRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -64,6 +69,7 @@ public class minecraftalienmod {
                 output.accept(EXAMPLE_ITEM.get());
                 output.accept(ModItems.STRAWBERRY);
                 output.accept(ModItems.OLDFASHIONED);
+                output.accept(ModItems.HEADCRAB_SPAWN_EGG.get());
                 // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
@@ -87,6 +93,8 @@ public class minecraftalienmod {
 
         ModItems.register(modEventBus);
 
+        ModEntities.register(modEventBus);
+
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
@@ -106,8 +114,7 @@ public class minecraftalienmod {
         Config.ITEM_STRINGS.get().forEach((item) -> LOGGER.info("ITEM >> {}", item));
     }
 
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
+    public void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(EXAMPLE_BLOCK_ITEM);
             event.accept(ModItems.STRAWBERRY);
@@ -119,5 +126,16 @@ public class minecraftalienmod {
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
+    }
+
+    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            //ModItemProperties.addCustomItemProperties();
+
+            EntityRenderers.register(ModEntities.HEADCRAB.get(), HeadcrabRenderer::new);
+        }
     }
 }

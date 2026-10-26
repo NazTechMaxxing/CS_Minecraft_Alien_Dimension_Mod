@@ -1,5 +1,5 @@
 {
-  "itemGroup.minecraftalienmod": "Example Mod Tab",
+  "itemGroup.minecraftalienmod": "CS Club",
   "block.minecraftalienmod.example_block": "Example Block",
   "item.minecraftalienmod.example_item": "Example Item",
 "item.minecraftalienmod.strawberry": "strawberry",
@@ -11,4 +11,5 @@
   "minecraftalienmod.configuration.logDirtBlock": "Log Dirt Block",
   "minecraftalienmod.configuration.magicNumberIntroduction": "Magic Number Text",
   "minecraftalienmod.configuration.magicNumber": "Magic Number",
+  "item.minecraftalienmod.headcrab_spawn_egg": "Headcrab Spawn Egg"
 }
